@@ -1,0 +1,32 @@
+version: '3.8'
+
+services:
+    laravel:
+        build: .
+        ports:
+            - "8000:8000" # Make sure the correct port is mapped
+        volumes:
+            - .:/var/www/html
+        depends_on:
+            - node
+        networks:
+            - app-network
+        env_file:
+            - .env
+        command: sh -c "php artisan serve --host=0.0.0.0 --port=8000 & php artisan queue:work"
+    node:
+        build: ./fe/knot-contacts-fe
+        ports:
+            - "3000:3000"
+        volumes:
+            - ./fe/knot-contacts-fe:/app
+        stdin_open: true
+        tty: true
+        networks:
+            - app-network
+        env_file:
+            - fe/knot-contacts-fe/.env
+
+networks:
+    app-network:
+        driver: bridge

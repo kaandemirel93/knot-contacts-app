@@ -52,4 +52,6 @@ To run the app, just do:
 - chmod +x run_local.sh
 - ./run_local.sh
 
+- P.S.: make sure to run composer install on root & npm install on fe/knot-contacts/fe before running the app.
+
 
